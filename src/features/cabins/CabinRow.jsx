@@ -10,7 +10,7 @@ const TableRow = styled.div`
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
   column-gap: 2.4rem;
   align-items: center;
-  padding: 2rem 5rem;
+  padding: 1.4rem 5rem;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
