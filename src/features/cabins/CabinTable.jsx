@@ -5,13 +5,14 @@ import { useCabins } from './useCabins';
 import CabinRow from './CabinRow';
 import Spinner from '../../ui/Spinner';
 import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
 
 export default function CabinTable() {
   const { cabins, isLoading, error } = useCabins();
 
   if (isLoading) return <Spinner />;
   return (
-    <div>
+    <Menus>
       <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
         <Table.Header>
           <div></div>
@@ -27,6 +28,6 @@ export default function CabinTable() {
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
       </Table>
-    </div>
+    </Menus>
   );
 }
