@@ -14,6 +14,9 @@ import Spinner from '../../ui/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { HiArrowDownOnSquare, HiArrowUpOnSquare } from 'react-icons/hi2';
 import { useCheckout } from '../check-in-out/useCheckout';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
+import { useDeleteBooking } from './useDeleteBooking';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -28,6 +31,7 @@ function BookingDetail() {
 
   const moveBack = useMoveBack();
   const { checkout, isCheckingout } = useCheckout();
+  const { deleteBookingMutate, isDeleting } = useDeleteBooking();
 
   if (isLoading) return <Spinner />;
 
@@ -53,16 +57,12 @@ function BookingDetail() {
 
       <ButtonGroup>
         {status === 'unconfirmed' && (
-          <Button
-            icon={<HiArrowDownOnSquare />}
-            onClick={() => navigate(`/checkin/${bookingId}`)}
-          >
+          <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check in
           </Button>
         )}
         {status === 'checked-in' && (
           <Button
-            icon={<HiArrowUpOnSquare />}
             onClick={() => {
               checkout(bookingId);
             }}
@@ -71,6 +71,23 @@ function BookingDetail() {
             Check Out
           </Button>
         )}
+        <Modal>
+          <Modal.Open opens="confirm-delete-booking">
+            <Button variation="danger">Delete booking</Button>
+          </Modal.Open>
+
+          <Modal.Window name="confirm-delete-booking">
+            <ConfirmDelete
+              resourceName={`booking #${bookingId}`}
+              disabled={isDeleting}
+              onConfirm={() =>
+                deleteBookingMutate(bookingId, {
+                  onSettled: () => navigate(-1),
+                })
+              }
+            />
+          </Modal.Window>
+        </Modal>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
