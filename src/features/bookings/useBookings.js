@@ -42,7 +42,7 @@ export function useBookings() {
       queryFn: () => getBookings({ filter, sortBy, page: nextPage }),
     });
   }
-  if (page < pageCount) {
+  if (page > 1) {
     const prevPage = page - 1;
     queryClient.prefetchQuery({
       queryKey: ['bookings', filter, sortBy, prevPage],
