@@ -16,11 +16,13 @@ import BookingPage from './pages/BookingPage';
 import Checkin from './pages/Checkin';
 
 import AppLayout from './ui/AppLayout';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      // staleTime: 60 * 1000,
+      staleTime: 0,
     },
   },
 });
@@ -32,7 +34,13 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="booking" element={<Booking />} />
