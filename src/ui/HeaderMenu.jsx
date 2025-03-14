@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Logout from '../features/authentication/Logout';
 import ButtonIcon from './ButtonIcon';
+import DarkModeToggle from './DarkModeToggle';
 
 const StyledHeaderMenu = styled.ul`
   display: flex;
@@ -18,6 +19,9 @@ export default function HeaderMenu() {
         <ButtonIcon onClick={() => navigate('/account')}>
           <HiOutlineUser />
         </ButtonIcon>
+      </li>
+      <li>
+        <DarkModeToggle />
       </li>
       <li>
         <Logout />
